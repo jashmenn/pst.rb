@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xcombinator</groupId>
+  <artifactId>pst</artifactId>
+  <version>0.0.1</version>
+  <name>pst</name>
+  <description></description>
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>http://clojars.org/repo</url>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>com.pff</groupId>
+      <artifactId>java-libpst</artifactId>
+      <version>1.0.0</version>
+      <!--
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>org.slf4j/slf4j-api</artifactId>
+        </exclusion>
+      </exclusions> 
+      -->
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin> <!-- just run `mvn process-sources` -->
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.basedir}/vendor/jars</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

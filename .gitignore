@@ -5,3 +5,4 @@ pkg/*
 .#*
 \#*#
 test/data/TestArchive.pst
+vendor/jars/*.jar
