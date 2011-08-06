@@ -1,7 +1,7 @@
+$:.unshift(File.expand_path(File.dirname(__FILE__))+ "/../lib")
 require 'rubygems'
+require 'pst'
 require 'bundler/setup'
-
-require 'pst' # and any other gems you need
 
 RSpec.configure do |config|
   # some (optional) config here
