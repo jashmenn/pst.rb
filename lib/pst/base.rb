@@ -13,13 +13,21 @@ class Java::ComPff::PSTFolder
     self.getDisplayName
   end
 
-  def children_folders
+  def sub_folders
     Enumerator.new do |yielder|
       self.getSubFolders.each do |f|
         yielder.yield f
-        f.children_folders.each do |fc|
+        f.sub_folders.each do |fc|
           yielder.yield fc
         end
+      end
+    end
+  end
+
+  def children
+    Enumerator.new do |yielder|
+      while kid = getNextChild
+        yielder.yield kid
       end
     end
   end

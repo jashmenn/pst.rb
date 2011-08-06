@@ -4,5 +4,6 @@ Gemfile.lock
 pkg/*
 .#*
 \#*#
-test/data/TestArchive.pst
 vendor/jars/*.jar
+test/data/*.pst
+.DS_Store
