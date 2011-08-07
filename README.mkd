@@ -1,0 +1,44 @@
+# pst.rb
+
+## Description
+
+JRuby gem for working with Outlook PST files. Syntactic sugar over
+`java-libpst`
+
+## Example
+
+    pstfile = Pff::PSTFile.new("foo.pst")
+
+    # iterate over all (nested) folders
+    folders = pstfile.root.sub_folders.inject({}){|acc,f|
+      acc[f.name] = f
+      acc
+    }
+
+    folder = folders["Inbox"] 
+    email = folder.children.first
+
+    pp email.subject        # -> "Re: obama's new debt plan"
+    pp email.num_recipients # -> 2
+
+    # handy human ids and hash strings
+    pp email.human_id "nates-mails:/path/to/foo.pst:/Top of Personal Folders/Inbox:Fri Aug 03 01:02:00 PDT 2011:<foo@bar.com>:Re: obama's new debt plan")
+    pp email.hash_string    # -> "f161dd2a45952784c440bd5879684ae89b8b0523"
+
+    recipient = email.recipients.first
+    pp recipient.name       # -> "Nate Murray"
+    pp recipient.email      # -> "nate@natemurray.com
+
+## References 
+
+The heavy lifting is done by Richard Johnson's java-libpst. Bless
+him for working out the protocol details so I didn't have to.
+
+* http://code.google.com/p/java-libpst/
+* http://www.rjohnson.id.au/wordpress/2010/01/26/java-libpst-pst2gmail/
+
+# Author
+
+Nate Murray <nate@natemurray.com>
+http://www.xcombinator.com
+
