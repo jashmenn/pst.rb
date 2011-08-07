@@ -3,22 +3,8 @@ testdatadir = File.dirname(__FILE__) + "/../test/data"
 
 Pff = Java::ComPff
 
-
-class Enumerator 
-  def lazy_map(&block) 
-    Enumerator.new do |yielder|
-      self.each do |value|
-        pp "calling #{value}"
-        v = block.call(value)
-        pp "got #{v} yielding"
-        yielder.yield(block.call(value))
-      end
-    end
-  end
-end
-
-
 describe "Pst::File" do
+
   before(:all) do
     @filename = testdatadir + "/albert_meyers_000.pst"
     #@pstfile = Pst::File.new(@filename)
@@ -28,16 +14,24 @@ describe "Pst::File" do
     @pstfile.name.should eql("albert_meyers_000")
   end
 
+  it "should have a filename" do
+    @pstfile.filename.should eql(@filename)
+  end
+
   it "should have a root" do
     @pstfile.root.should_not be_nil
-    #pp @pstfile.root
+  end
+
+  it "should tell root about itself" do
+    @pstfile.root.file.should eql(@pstfile)
+    @pstfile.root.file.name.should eql(@pstfile.name)
   end
 
   context "with sub folders" do
 
     before(:all) do
       @folder_names = @pstfile.root.sub_folders.inject({}){|acc,f|
-        acc[f.name] = f.getContentCount 
+        acc[f.name] = f
         acc
       }
     end
@@ -45,14 +39,15 @@ describe "Pst::File" do
     it "should have sub folders" do
       @folder_names.should have_key("ExMerge - Meyers, Albert")
       @folder_names.should have_key("meyers-a")
-      #@pstfile.root.sub_folders.each do |f|
-      #  pp [f.name,f]
-      #end
     end
 
     it "should have content counts" do
-      @folder_names["Deleted Items"].should eql(1130)
-      @folder_names["Inbox"].should eql(22)
+      @folder_names["Deleted Items"].getContentCount.should eql(1130)
+      @folder_names["Inbox"].getContentCount.should eql(22)
+    end
+
+    it "should have a path" do
+      @folder_names["Inbox"].path.should eql("/Top of Personal Folders/Inbox")
     end
 
   end
@@ -64,12 +59,16 @@ describe "Pst::File" do
         acc
       }
       @folder = @folders["Deleted Items"]
+      @email  = @folder.children.first
     end
 
-    it "should have content counts" do
-      child = @folder.children.first
-      child.subject.should eql("Re: deal 539246.1 REliant HLP dms 7634/7636") 
-      child.display_to.should eql("Joy Werner")
+    it "should have basic attributes" do
+      @email.subject.should eql("Re: deal 539246.1 REliant HLP dms 7634/7636") 
+      @email.display_to.should eql("Joy Werner")
+    end
+
+    it "should know about its folder" do
+      @email.folder.should eql(@folder)
     end
   end
 
