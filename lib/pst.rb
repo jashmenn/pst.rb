@@ -17,5 +17,6 @@ Dir.entries(jars_dir).sort.each do |entry|
   end
 end
 
+require "pst/extensions"
 require "pst/version"
 require "pst/base"
