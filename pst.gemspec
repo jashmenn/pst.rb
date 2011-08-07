@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{Syntactic sugar over java-libpst.}
 
   s.rubyforge_project = "pst.rb"
+  s.add_dependency("andand")
 
   s.files         = `git ls-files`.split("\n") + `find vendor/jars -type f -name *.jar`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

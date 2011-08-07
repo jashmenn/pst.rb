@@ -4,6 +4,7 @@ $LOAD_PATH << "#{here}"
 require 'rubygems'
 require 'pp'
 require 'java'
+require 'andand'
 
 module Pst; end
 

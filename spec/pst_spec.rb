@@ -50,6 +50,11 @@ describe "Pst::File" do
       @folder_names["Inbox"].path.should eql("/Top of Personal Folders/Inbox")
     end
 
+    it "should have a hash string" do
+      @folder_names["Inbox"].human_id.should eql("no-collection:/Users/nmurray/projects/enron/software/pst.rb/spec/../test/data/albert_meyers_000.pst:/Top of Personal Folders/Inbox")
+      @folder_names["Inbox"].hash_string.should eql("767d47f8134cd5c14786efd0274586b1065278e7")
+    end
+
   end
 
   context "with emails" do
@@ -69,6 +74,12 @@ describe "Pst::File" do
 
     it "should know about its folder" do
       @email.folder.should eql(@folder)
+    end
+
+    it "should have an id" do
+      @email.human_id.should eql("no-collection:/Users/nmurray/projects/enron/software/pst.rb/spec/../test/data/albert_meyers_000.pst:/Top of Personal Folders/Deleted Items:Fri Apr 06 01:02:00 PDT 2001:<ML1KCRAP2G52RFDSYPSFSAQ0J30PDFMMB@zlsvr22>:Re: deal 539246.1 REliant HLP dms 7634/7636")
+      @email.hash_string.should eql("c512b175785b28532146be7cdb165a5bbee4d130")
+      pp @email.pretty_string
     end
   end
 
