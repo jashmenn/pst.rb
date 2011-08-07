@@ -1,3 +1,4 @@
 # I haven't put the test PST into git because of the filesize. To download try here:
 # contact me if the link breaks <nate@natemurray.com>
-curl -0 http://trac.zarafa.com/raw-attachment/ticket/4452/Test%20Archive.pst > test/data/TestArchive.pst
+
+curl -0 http://www.xcombinator.com/wp-content/uploads/2011/05/albert_meyers_000.pst > test/data/albert_meyers_000.pst
