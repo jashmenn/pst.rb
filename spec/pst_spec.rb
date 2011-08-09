@@ -42,6 +42,18 @@ describe "PST" do
 
     end
 
+    it "should have subfolder count" do
+       @folders["Top of Personal Folders"].subfolder_count.should eql(5)
+    end
+
+    it "should know the number of immediate emails" do
+      #pp @folders["Deleted Items"].email_count
+    end
+
+    it "should have creation time" do
+      # pp @folders["Inbox"].creation_time
+    end
+
     it "should have sub folders" do
       @folders.should have_key("ExMerge - Meyers, Albert")
       @folders.should have_key("meyers-a")
@@ -122,7 +134,6 @@ describe "PST" do
     it "should have a hash string" do
       @recipients["Bill"].hash_string.should eql("f161dd2a45952784c440bd5879684ae89b8b0523")
     end
-
   end
 
 end
